@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMZY's Guess the Number Game</title>
+</head>
+<body>
+    <h1>TMZY's Guess the Number Game</h1>
+    <p>I have chosen a number between 1 and 100. Can you guess it?</p>
+
+    <input type="number" id="guessInput" placeholder="Enter your guess" />
+    <button onclick="guessNumber()">Guess</button>
+    
+    <p id="message"></p>
+
+    <script>
+        // JavaScript code to handle the logic
+        const numberToGuess = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function guessNumber() {
+            let userGuess = parseInt(document.getElementById('guessInput').value);
+            attempts++;
+            let message = '';
+
+            if (userGuess < numberToGuess) {
+                message = 'Too low!';
+            } else if (userGuess > numberToGuess) {
+                message = 'Too high!';
+            } else {
+                message = `Congratulations! You guessed the number in ${attempts} attempts!`;
+            }
+
+            document.getElementById('message').innerText = message;
+        }
+    </script>
+</body>
+</html>
