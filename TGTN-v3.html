@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMZY's Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .game-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .game-title {
+            font-size: 3em;
+            color: #1e90ff; /* Blue color */
+            font-family: 'Georgia', serif; /* Changed to a serif font */
+            text-shadow: 2px 2px 8px rgba(30, 144, 255, 0.8), 0 0 10px rgba(30, 144, 255, 0.5); /* Blue glowing effect */
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Fun glowing pulse effect */
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 5px rgba(30, 144, 255, 0.8), 0 0 10px rgba(30, 144, 255, 0.6), 0 0 20px rgba(30, 144, 255, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 0.8), 0 0 30px rgba(30, 144, 255, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(30, 144, 255, 0.8), 0 0 10px rgba(30, 144, 255, 0.6), 0 0 20px rgba(30, 144, 255, 0.4);
+            }
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #feedback {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #startOver {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">TMZY's Guess the Number</h1>
+        <p>I have chosen a number between 1 and 100. Can you guess it?</p>
+
+        <input type="number" id="guessInput" placeholder="Enter your guess">
+        <br>
+        <button onclick="guessNumber()">Guess</button>
+
+        <p id="feedback"></p>
+
+        <!-- Start Over button -->
+        <button id="startOver" onclick="startGame()">Start Over</button>
+    </div>
+
+    <script>
+        let numberToGuess;
+        let attempts;
+
+        // Start the game (initialize or restart)
+        function startGame() {
+            numberToGuess = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('feedback').innerText = '';
+            document.getElementById('guessInput').value = '';
+            document.getElementById('startOver').style.display = 'none'; // Hide Start Over button
+        }
+
+        // Function to handle guessing logic
+        function guessNumber() {
+            const userGuess = parseInt(document.getElementById("guessInput").value);
+            attempts++;
+
+            let feedback = "";
+            if (userGuess < numberToGuess) {
+                feedback = "Too low!";
+            } else if (userGuess > numberToGuess) {
+                feedback = "Too high!";
+            } else {
+                feedback = `Congratulations! You guessed it right in ${attempts} attempts!`;
+                document.getElementById('startOver').style.display = 'block'; // Show Start Over button
+            }
+
+            document.getElementById("feedback").innerText = feedback;
+        }
+
+        // Start the game on page load
+        startGame();
+    </script>
+</body>
+</html>
